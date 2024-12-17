@@ -27,12 +27,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: _passwordEditingController.text,
       );
 
-      final User? user = response.user;
+      print(response.user);
 
-      if (user == null) {
-        print('Sign up error: $user');
-      } else {
-        final String userId = user.id;
+      final String userId = response.user!.id;
+
+      // if (user == null) {
+      //   print('Sign up error: $user');
+      // } else {
+      //   final String userId = user.id;
 
         // Step 2: Insert user details into `tbl_user`
         await supabase.from('tbl_user').insert({
@@ -49,7 +51,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             MaterialPageRoute(
               builder: (context) => LoginScreen(),
             ));
-      }
+      
     } catch (e) {
       print('Sign up failed: $e');
     }
